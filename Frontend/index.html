@@ -2,25 +2,28 @@
 <html>
 <head>
     <title>Recomendación de Cultivos</title>
+    <meta charset="UTF-8">
 </head>
 <body>
 
-<h2>Predicción de Cultivo</h2>
+<h2>Predicción de Cultivo 🌱</h2>
 
-<input id="N" placeholder="N"><br>
-<input id="P" placeholder="P"><br>
-<input id="K" placeholder="K"><br>
-<input id="temperature" placeholder="Temperatura"><br>
-<input id="humidity" placeholder="Humedad"><br>
-<input id="ph" placeholder="pH"><br>
-<input id="rainfall" placeholder="Lluvia"><br>
+<input id="N" placeholder="Nitrógeno"><br><br>
+<input id="P" placeholder="Fósforo"><br><br>
+<input id="K" placeholder="Potasio"><br><br>
+<input id="temperature" placeholder="Temperatura"><br><br>
+<input id="humidity" placeholder="Humedad"><br><br>
+<input id="ph" placeholder="pH"><br><br>
+<input id="rainfall" placeholder="Lluvia"><br><br>
 
-<button onclick="predictRF()">Predecir RF</button>
+<button onclick="predictRF()">Predecir RandomForest</button>
 <button onclick="predictSVM()">Predecir SVM</button>
 
 <h3 id="resultado"></h3>
 
 <script>
+const API_URL = ""https://crop-api-abc.onrender.com"";
+
 function getData(){
     return {
         N: parseFloat(document.getElementById("N").value),
@@ -34,26 +37,28 @@ function getData(){
 }
 
 function predictRF(){
-    fetch("http://127.0.0.1:8000/predict/rf", {
+    fetch(API_URL + "/predict/rf", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(getData())
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("resultado").innerText = data.cultivo;
+        document.getElementById("resultado").innerText =
+            "RF: " + data.cultivo;
     });
 }
 
 function predictSVM(){
-    fetch("http://127.0.0.1:8000/predict/svm", {
+    fetch(API_URL + "/predict/svm", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(getData())
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("resultado").innerText = data.cultivo;
+        document.getElementById("resultado").innerText =
+            "SVM: " + data.cultivo;
     });
 }
 </script>
