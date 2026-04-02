@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recomendación de Cultivos</title>
+</head>
+<body>
+
+<h2>Predicción de Cultivo</h2>
+
+<input id="N" placeholder="N"><br>
+<input id="P" placeholder="P"><br>
+<input id="K" placeholder="K"><br>
+<input id="temperature" placeholder="Temperatura"><br>
+<input id="humidity" placeholder="Humedad"><br>
+<input id="ph" placeholder="pH"><br>
+<input id="rainfall" placeholder="Lluvia"><br>
+
+<button onclick="predictRF()">Predecir RF</button>
+<button onclick="predictSVM()">Predecir SVM</button>
+
+<h3 id="resultado"></h3>
+
+<script>
+function getData(){
+    return {
+        N: parseFloat(document.getElementById("N").value),
+        P: parseFloat(document.getElementById("P").value),
+        K: parseFloat(document.getElementById("K").value),
+        temperature: parseFloat(document.getElementById("temperature").value),
+        humidity: parseFloat(document.getElementById("humidity").value),
+        ph: parseFloat(document.getElementById("ph").value),
+        rainfall: parseFloat(document.getElementById("rainfall").value)
+    }
+}
+
+function predictRF(){
+    fetch("http://127.0.0.1:8000/predict/rf", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(getData())
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("resultado").innerText = data.cultivo;
+    });
+}
+
+function predictSVM(){
+    fetch("http://127.0.0.1:8000/predict/svm", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(getData())
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("resultado").innerText = data.cultivo;
+    });
+}
+</script>
+
+</body>
+</html>
