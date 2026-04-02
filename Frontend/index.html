@@ -4,8 +4,44 @@
     <title>Recomendación de Cultivos</title>
     <meta charset="UTF-8">
 </head>
-<body>
+<style>
+body {
+    background-color: #f0f8ff;
+    font-family: Arial;
+    text-align: center;
+}
 
+h2 {
+    color: #2e7d32;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#resultado {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #1b5e20;
+}
+</style>
 <h2>Predicción de Cultivo 🌱</h2>
 
 <input id="N" placeholder="Nitrógeno"><br><br>
@@ -22,7 +58,7 @@
 <h3 id="resultado"></h3>
 
 <script>
-const API_URL = ""https://crop-api-abc.onrender.com"";
+const API_URL = "https://crop-api-abc.onrender.com";
 
 function getData(){
     return {
